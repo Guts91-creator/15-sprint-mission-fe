@@ -1,0 +1,34 @@
+.gnb {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  height: 7rem;
+  width: 100%;
+  background-color: #ffffff;
+  border-bottom: 1px solid #dfdfdf;
+}
+
+.gnb-inner {
+  width: calc(100% - 40rem);
+  max-width: 152rem;
+  height: 100%;
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-link img {
+  width: 15.3rem;
+}
+
+/* 로그인 버튼 전용 스타일 */
+.login-button {
+  padding: 1.15rem 2.3rem;
+  border-radius: 0.8rem;
+
+  font-size: 1.6rem;
+  font-weight: 600;
+}

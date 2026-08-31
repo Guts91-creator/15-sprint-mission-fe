@@ -3,15 +3,23 @@
   box-sizing: border-box;
 }
 
-/* 브라우저가 기본으로 넣는 body 마진 없애기 */
+/* 1rem을 10px로 계산하기 위한 기준 설정 */
+html {
+  font-size: 62.5%;
+}
+
+/* body 기본 스타일 */
 html,
 body {
   margin: 0;
 }
 
-/* body 최소 너비 설정 */
+/* body 기본 스타일 */
 body {
   min-width: 320px;
+  color: #374151;
+  word-break: keep-all;
+  font-family: "Pretendard", sans-serif;
 }
 
 /* 폼 요소가 브라우저 자체 글꼴을 사용하지 않고 페이지의 글꼴을 그대로 상속하도록 설정 */
@@ -26,4 +34,29 @@ textarea {
 image {
   display: block;
   max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 버튼 링크의 공통 속성 */
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #3692ff;
+  color: #ffffff;
+}
+
+/* 공통 버튼 상태 */
+.button:hover {
+  background-color: #1967d6;
+}
+
+.button:focus-visible {
+  background-color: #1251aa;
 }

@@ -1,0 +1,39 @@
+footer {
+  height: 16rem;
+  background-color: #111827;
+  color: #9ca3af;
+}
+
+.footer-inner {
+  width: calc(100% - 40rem);
+  max-width: 152rem;
+  height: 100%;
+  margin: 0 auto;
+  padding-top: 3.2rem;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-inner > p {
+  font-size: 1.6rem;
+  line-height: 2.6rem;
+}
+
+.footer-menu {
+  display: flex;
+  gap: 3rem;
+  color: #e5e7eb;
+  font-size: 1.6rem;
+  line-height: 2.6rem;
+}
+
+.social-media {
+  display: flex;
+  gap: 1.2rem;
+}
+
+.social-media img {
+  width: 2rem;
+  height: 2rem;
+}
