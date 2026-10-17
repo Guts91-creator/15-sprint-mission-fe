@@ -3,6 +3,76 @@ import Footer from "../components/Footer";
 import ProductCard from "../components/ProductCard";
 import "./ProductListPage.css";
 import searchIcon from "../assets/icons/ic_search.svg";
+import sampleProduct from "../assets/products/sample-product.png";
+
+const bestProducts = [
+  {
+    id: 1,
+    image: sampleProduct,
+    name: "아이패드 미니 팝니다",
+    price: "500,000원",
+    favoriteCount: 240,
+  },
+  {
+    id: 2,
+    image: sampleProduct,
+    name: "아이패드 미니 팝니다",
+    price: "500,000원",
+    favoriteCount: 240,
+  },
+  {
+    id: 3,
+    image: sampleProduct,
+    name: "아이패드 미니 팝니다",
+    price: "500,000원",
+    favoriteCount: 240,
+  },
+  {
+    id: 4,
+    image: sampleProduct,
+    name: "아이패드 미니 팝니다",
+    price: "500,000원",
+    favoriteCount: 240,
+  },
+];
+
+const products = [
+  {
+    id: 1,
+    image: sampleProduct,
+    name: "아이패드 미니 팝니다",
+    price: "500,000원",
+    favoriteCount: 240,
+  },
+  {
+    id: 2,
+    image: sampleProduct,
+    name: "아이패드 미니 팝니다",
+    price: "500,000원",
+    favoriteCount: 240,
+  },
+  {
+    id: 3,
+    image: sampleProduct,
+    name: "아이패드 미니 팝니다",
+    price: "500,000원",
+    favoriteCount: 240,
+  },
+  {
+    id: 4,
+    image: sampleProduct,
+    name: "아이패드 미니 팝니다",
+    price: "500,000원",
+    favoriteCount: 240,
+  },
+  {
+    id: 5,
+    image: sampleProduct,
+    name: "아이패드 미니 팝니다",
+    price: "500,000원",
+    favoriteCount: 240,
+  },
+];
 
 function ProductListPage() {
   return (
@@ -13,10 +83,15 @@ function ProductListPage() {
         <section className="best-products">
           <h2>베스트 상품</h2>
           <div className="best-product-list">
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
+            {bestProducts.map((product) => (
+              <ProductCard
+                key={product.id}
+                image={product.image}
+                name={product.name}
+                price={product.price}
+                favoriteCount={product.favoriteCount}
+              />
+            ))}
           </div>
         </section>
 
@@ -47,11 +122,15 @@ function ProductListPage() {
           </div>
 
           <div className="all-products-list">
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
+            {products.map((product) => (
+              <ProductCard
+                key={product.id}
+                image={product.image}
+                name={product.name}
+                price={product.price}
+                favoriteCount={product.favoriteCount}
+              />
+            ))}
           </div>
 
           <nav className="pagination" aria-lable="상품 목록 페이지">

@@ -1,0 +1,44 @@
+.product-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+
+  object-fit: cover;
+  background-color: #f3f4f6;
+  border-radius: 1.2rem;
+}
+
+.product-info {
+  margin-top: 1.6rem;
+}
+
+.product-name {
+  margin: 0;
+
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+.product-price {
+  margin: 0;
+  margin-top: 0.8rem;
+
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.product-favorite {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.8rem;
+}
+
+.product-favorite img {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.product-favorite span {
+  font-size: 1.2rem;
+  color: #6b7280;
+}
