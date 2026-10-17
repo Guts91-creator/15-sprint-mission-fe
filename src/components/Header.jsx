@@ -5,9 +5,19 @@ function Header() {
   return (
     <header className="gnb">
       <nav className="gnb-inner" aria-label="주요 메뉴">
-        <a href="/" className="logo-link">
-          <img src={pandaMarketLogo} alt="판다마켓 홈" />
-        </a>
+        <div className="gnb-left">
+          <a href="/" className="logo-link">
+            <img src={pandaMarketLogo} alt="판다마켓 홈" />
+          </a>
+
+          <a href="/articles" className="gnb-link">
+            자유게시판
+          </a>
+
+          <a href="/itmes" className="gnb-link">
+            중고마켓
+          </a>
+        </div>
 
         <a href="/login" className="button login-button">
           로그인

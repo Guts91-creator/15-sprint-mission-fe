@@ -20,6 +20,18 @@
   align-items: center;
 }
 
+.gnb-left {
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+}
+
+.gnb-link {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #374151;
+}
+
 .logo-link img {
   width: 15.3rem;
 }
