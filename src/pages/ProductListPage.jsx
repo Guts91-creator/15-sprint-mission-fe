@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import ProductCard from "../components/ProductCard";
 import "./ProductListPage.css";
 import searchIcon from "../assets/icons/ic_search.svg";
+import { getProducts } from "../api/products";
 
 function ProductListPage() {
   const [bestProducts, setBestProducts] = useState([]);
@@ -15,16 +16,7 @@ function ProductListPage() {
   const [productsError, setProductsError] = useState(null);
 
   useEffect(() => {
-    fetch(
-      "https://panda-market-api.vercel.app/products?page=1&pageSize=4&orderBy=favorite",
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("베스트 상품을 불러오지 못했습니다.");
-        }
-
-        return response.json();
-      })
+    getProducts({ page: 1, pageSize: 4, orderBy: "favorite" })
       .then((data) => {
         setBestProducts(data.list);
         setBestLoading(false);
@@ -36,15 +28,7 @@ function ProductListPage() {
   }, []);
 
   useEffect(() => {
-    fetch(
-      "https://panda-market-api.vercel.app/products?page=1&pageSize=5&orderBy=recent",
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("상품을 불러오지 못했습니다.");
-        }
-        return response.json();
-      })
+    getProducts({ page: 1, pageSize: 5, orderBy: "recent" })
       .then((data) => {
         setProducts(data.list);
         setProductsLoading(false);
