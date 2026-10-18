@@ -1,80 +1,60 @@
+import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ProductCard from "../components/ProductCard";
 import "./ProductListPage.css";
 import searchIcon from "../assets/icons/ic_search.svg";
-import sampleProduct from "../assets/products/sample-product.png";
-
-const bestProducts = [
-  {
-    id: 1,
-    image: sampleProduct,
-    name: "아이패드 미니 팝니다",
-    price: "500,000원",
-    favoriteCount: 240,
-  },
-  {
-    id: 2,
-    image: sampleProduct,
-    name: "아이패드 미니 팝니다",
-    price: "500,000원",
-    favoriteCount: 240,
-  },
-  {
-    id: 3,
-    image: sampleProduct,
-    name: "아이패드 미니 팝니다",
-    price: "500,000원",
-    favoriteCount: 240,
-  },
-  {
-    id: 4,
-    image: sampleProduct,
-    name: "아이패드 미니 팝니다",
-    price: "500,000원",
-    favoriteCount: 240,
-  },
-];
-
-const products = [
-  {
-    id: 1,
-    image: sampleProduct,
-    name: "아이패드 미니 팝니다",
-    price: "500,000원",
-    favoriteCount: 240,
-  },
-  {
-    id: 2,
-    image: sampleProduct,
-    name: "아이패드 미니 팝니다",
-    price: "500,000원",
-    favoriteCount: 240,
-  },
-  {
-    id: 3,
-    image: sampleProduct,
-    name: "아이패드 미니 팝니다",
-    price: "500,000원",
-    favoriteCount: 240,
-  },
-  {
-    id: 4,
-    image: sampleProduct,
-    name: "아이패드 미니 팝니다",
-    price: "500,000원",
-    favoriteCount: 240,
-  },
-  {
-    id: 5,
-    image: sampleProduct,
-    name: "아이패드 미니 팝니다",
-    price: "500,000원",
-    favoriteCount: 240,
-  },
-];
 
 function ProductListPage() {
+  const [bestProducts, setBestProducts] = useState([]);
+  const [bestLoading, setBestLoading] = useState(true);
+  const [bestError, setBestError] = useState(null);
+
+  const [products, setProducts] = useState([]);
+  const [productsLoading, setProductsLoading] = useState(true);
+  const [productsError, setProductsError] = useState(null);
+
+  useEffect(() => {
+    fetch(
+      "https://panda-market-api.vercel.app/products?page=1&pageSize=4&orderBy=favorite",
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("베스트 상품을 불러오지 못했습니다.");
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        setBestProducts(data.list);
+        setBestLoading(false);
+      })
+      .catch((error) => {
+        setBestError(error);
+        setBestLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch(
+      "https://panda-market-api.vercel.app/products?page=1&pageSize=5&orderBy=recent",
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("상품을 불러오지 못했습니다.");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setProducts(data.list);
+        setProductsLoading(false);
+      })
+      .catch((error) => {
+        setProductsError(error);
+        setProductsLoading(false);
+      });
+  }, []);
+
   return (
     <>
       <Header />
@@ -83,15 +63,21 @@ function ProductListPage() {
         <section className="best-products">
           <h2>베스트 상품</h2>
           <div className="best-product-list">
-            {bestProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                image={product.image}
-                name={product.name}
-                price={product.price}
-                favoriteCount={product.favoriteCount}
-              />
-            ))}
+            {bestLoading ? (
+              <p>불러오는 중...</p>
+            ) : bestError ? (
+              <p>베스트 상품을 불러오지 못했습니다.</p>
+            ) : (
+              bestProducts.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  image={product.images[0]}
+                  name={product.name}
+                  price={product.price}
+                  favoriteCount={product.favoriteCount}
+                />
+              ))
+            )}
           </div>
         </section>
 
@@ -122,15 +108,21 @@ function ProductListPage() {
           </div>
 
           <div className="all-products-list">
-            {products.map((product) => (
-              <ProductCard
-                key={product.id}
-                image={product.image}
-                name={product.name}
-                price={product.price}
-                favoriteCount={product.favoriteCount}
-              />
-            ))}
+            {productsLoading ? (
+              <p>불러오는 중...</p>
+            ) : productsError ? (
+              <p>상품을 불러오지 못했습니다.</p>
+            ) : (
+              products.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  image={product.images[0]}
+                  name={product.name}
+                  price={product.price}
+                  favoriteCount={product.favoriteCount}
+                />
+              ))
+            )}
           </div>
 
           <nav className="pagination" aria-lable="상품 목록 페이지">
