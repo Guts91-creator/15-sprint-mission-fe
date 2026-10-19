@@ -15,6 +15,8 @@ function ProductListPage() {
   const [productsLoading, setProductsLoading] = useState(true);
   const [productsError, setProductsError] = useState(null);
 
+  const [keyword, setKeyword] = useState("");
+
   useEffect(() => {
     getProducts({ page: 1, pageSize: 4, orderBy: "favorite" })
       .then((data) => {
@@ -28,7 +30,7 @@ function ProductListPage() {
   }, []);
 
   useEffect(() => {
-    getProducts({ page: 1, pageSize: 5, orderBy: "recent" })
+    getProducts({ page: 1, pageSize: 5, orderBy: "recent", keyword })
       .then((data) => {
         setProducts(data.list);
         setProductsLoading(false);
@@ -37,7 +39,7 @@ function ProductListPage() {
         setProductsError(error);
         setProductsLoading(false);
       });
-  }, []);
+  }, [keyword]);
 
   return (
     <>
@@ -77,6 +79,12 @@ function ProductListPage() {
                   type="search"
                   placeholder="검색할 상품을 입력해주세요"
                   aria-label="상품 검색"
+                  value={keyword}
+                  onChange={(event) => {
+                    setProductsLoading(true);
+                    setProductsError(null);
+                    setKeyword(event.target.value);
+                  }}
                 />
               </div>
 
