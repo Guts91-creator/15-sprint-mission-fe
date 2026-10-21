@@ -16,8 +16,18 @@ function ProductListPage() {
   const [productsError, setProductsError] = useState(null);
 
   const [keyword, setKeyword] = useState("");
-
   const [orderBy, setOrderBy] = useState("recent");
+  const [page, setPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
+
+  const totalPages = Math.ceil(totalCount / 5);
+  const startPage = Math.floor((page - 1) / 5) * 5 + 1;
+  const endPage = Math.min(startPage + 4, totalPages);
+  const visiblePageCount = endPage - startPage + 1;
+  const pageNumbers = Array.from(
+    { length: visiblePageCount },
+    (_, index) => startPage + index,
+  );
 
   useEffect(() => {
     getProducts({ page: 1, pageSize: 4, orderBy: "favorite" })
@@ -32,16 +42,17 @@ function ProductListPage() {
   }, []);
 
   useEffect(() => {
-    getProducts({ page: 1, pageSize: 5, orderBy, keyword })
+    getProducts({ page, pageSize: 5, orderBy, keyword })
       .then((data) => {
         setProducts(data.list);
+        setTotalCount(data.totalCount);
         setProductsLoading(false);
       })
       .catch((error) => {
         setProductsError(error);
         setProductsLoading(false);
       });
-  }, [keyword, orderBy]);
+  }, [keyword, orderBy, page]);
 
   return (
     <>
@@ -86,6 +97,7 @@ function ProductListPage() {
                     setProductsLoading(true);
                     setProductsError(null);
                     setKeyword(event.target.value);
+                    setPage(1);
                   }}
                 />
               </div>
@@ -98,6 +110,7 @@ function ProductListPage() {
                 value={orderBy}
                 onChange={(event) => {
                   setOrderBy(event.target.value);
+                  setPage(1);
                 }}
                 className="sort-select"
                 aria-label="상품 정렬"
@@ -127,15 +140,30 @@ function ProductListPage() {
           </div>
 
           <nav className="pagination" aria-lable="상품 목록 페이지">
-            <button type="button">‹</button>
-            <button type="button" aria-current="page">
-              1
+            <button
+              type="button"
+              onClick={() => setPage(page - 1)}
+              disabled={page === 1}
+            >
+              ‹
             </button>
-            <button type="button">2</button>
-            <button type="button">3</button>
-            <button type="button">4</button>
-            <button type="button">5</button>
-            <button type="button">›</button>
+            {pageNumbers.map((pageNumber) => (
+              <button
+                key={pageNumber}
+                type="button"
+                onClick={() => setPage(pageNumber)}
+                aria-current={page === pageNumber ? "page" : undefined}
+              >
+                {pageNumber}
+              </button>
+            ))}
+            <button
+              type="button"
+              onClick={() => setPage(page + 1)}
+              disabled={page >= totalPages}
+            >
+              ›
+            </button>
           </nav>
         </section>
       </main>
