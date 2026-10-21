@@ -17,6 +17,8 @@ function ProductListPage() {
 
   const [keyword, setKeyword] = useState("");
 
+  const [orderBy, setOrderBy] = useState("recent");
+
   useEffect(() => {
     getProducts({ page: 1, pageSize: 4, orderBy: "favorite" })
       .then((data) => {
@@ -30,7 +32,7 @@ function ProductListPage() {
   }, []);
 
   useEffect(() => {
-    getProducts({ page: 1, pageSize: 5, orderBy: "recent", keyword })
+    getProducts({ page: 1, pageSize: 5, orderBy, keyword })
       .then((data) => {
         setProducts(data.list);
         setProductsLoading(false);
@@ -39,7 +41,7 @@ function ProductListPage() {
         setProductsError(error);
         setProductsLoading(false);
       });
-  }, [keyword]);
+  }, [keyword, orderBy]);
 
   return (
     <>
@@ -92,7 +94,14 @@ function ProductListPage() {
                 상품 등록하기
               </button>
 
-              <select className="sort-select" aria-label="상품 정렬">
+              <select
+                value={orderBy}
+                onChange={(event) => {
+                  setOrderBy(event.target.value);
+                }}
+                className="sort-select"
+                aria-label="상품 정렬"
+              >
                 <option value="recent">최신순</option>
                 <option value="favorite">좋아요순</option>
               </select>
